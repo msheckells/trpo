@@ -206,8 +206,8 @@ class Policy(object):
             if self.beta > 30 and self.lr_multiplier > 0.1:
                 self.lr_multiplier /= 1.5
         elif kl < self.kl_targ / 2:
-            self.beta = np.maximum(1 / 35, self.beta / 1.5)  # min clip beta
-            if self.beta < (1 / 30) and self.lr_multiplier < 10:
+            self.beta = np.maximum(1 / 35., self.beta / 1.5)  # min clip beta
+            if self.beta < (1 / 30.) and self.lr_multiplier < 10:
                 self.lr_multiplier *= 1.5
 
         logger.log({'PolicyLoss': loss,
