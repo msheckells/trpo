@@ -26,6 +26,7 @@ in the OpenAI Gym (https://gym.openai.com/). Testing was focused on
 the MuJoCo control tasks.
 """
 import gym
+from gym_mobot.envs import NNSimpleCarModelEnv
 import numpy as np
 from gym import wrappers
 from policy import Policy
@@ -279,7 +280,7 @@ def main(env_name, num_episodes, gamma, lam, kl_targ, batch_size, hid1_mult, pol
     now = datetime.utcnow().strftime("%b-%d_%H:%M:%S")  # create unique directories
     logger = Logger(logname=env_name, now=now)
     aigym_path = os.path.join('/tmp', env_name, now)
-    env = wrappers.Monitor(env, aigym_path, force=True)
+    env = wrappers.Monitor(env, aigym_path, force=True, video_callable = False)
     scaler = Scaler(obs_dim)
     val_func = NNValueFunction(obs_dim, hid1_mult)
     policy = Policy(obs_dim, act_dim, kl_targ, hid1_mult, policy_logvar)
